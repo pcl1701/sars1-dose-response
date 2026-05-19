@@ -1,0 +1,181 @@
+individual,animal_species,TCID_dose,data_type,sex,age
+YC_RM-01,RM,100000,pharyngeal swab,F,2.5
+YC_RM-02,RM,100000,pharyngeal swab,M,2.5
+YC_RM-03,RM,100000,pharyngeal swab,F,2.5
+YC_RM-04,RM,100000,pharyngeal swab,F,3
+YC_RM-05,RM,100000,pharyngeal swab,M,2.5
+YC_RM-06,RM,100000,pharyngeal swab,M,3.2
+YC_RM-07,RM,100000,pharyngeal swab,M,4
+YC_RM-08,RM,100000,pharyngeal swab,F,3
+YC_RM-09,RM,100000,pharyngeal swab,M,2.5
+YC_RM-10,RM,100000,pharyngeal swab,M,3
+YC_RM-11,RM,100000,pharyngeal swab,F,2.5
+JL_CM-03,CM,8571429,nasal swab,M,adult
+JL_CM-03,CM,8571429,nasal swab,M,adult
+JL_CM-03,CM,8571429,nasal swab,M,adult
+JL_CM-03,CM,8571429,nasal swab,M,adult
+JL_CM-03,CM,8571429,nasal swab,M,adult
+JL_CM-03,CM,8571429,nasal swab,M,adult
+JL_CM-03,CM,8571429,nasal swab,M,adult
+JL_CM-03,CM,8571429,nasal swab,M,adult
+JL_CM-03,CM,8571429,nasal swab,M,adult
+JL_CM-03,CM,8571429,nasal swab,M,adult
+JL_CM-03,CM,8571429,nasal swab,M,adult
+JL_CM-03,CM,8571429,pharyngeal swab,M,adult
+JL_CM-03,CM,8571429,pharyngeal swab,M,adult
+JL_CM-03,CM,8571429,pharyngeal swab,M,adult
+JL_CM-03,CM,8571429,pharyngeal swab,M,adult
+JL_CM-03,CM,8571429,pharyngeal swab,M,adult
+JL_CM-03,CM,8571429,pharyngeal swab,M,adult
+JL_CM-03,CM,8571429,pharyngeal swab,M,adult
+JL_CM-03,CM,8571429,pharyngeal swab,M,adult
+JL_CM-03,CM,8571429,pharyngeal swab,M,adult
+JL_CM-03,CM,8571429,pharyngeal swab,M,adult
+JL_CM-03,CM,8571429,pharyngeal swab,M,adult
+JL_CM-04,CM,8571429,nasal swab,M,adult
+JL_CM-04,CM,8571429,nasal swab,M,adult
+JL_CM-04,CM,8571429,nasal swab,M,adult
+JL_CM-04,CM,8571429,nasal swab,M,adult
+JL_CM-04,CM,8571429,nasal swab,M,adult
+JL_CM-04,CM,8571429,nasal swab,M,adult
+JL_CM-04,CM,8571429,nasal swab,M,adult
+JL_CM-04,CM,8571429,nasal swab,M,adult
+JL_CM-04,CM,8571429,nasal swab,M,adult
+JL_CM-04,CM,8571429,nasal swab,M,adult
+JL_CM-04,CM,8571429,nasal swab,M,adult
+JL_CM-04,CM,8571429,nasal swab,M,adult
+JL_CM-04,CM,8571429,pharyngeal swab,M,adult
+JL_CM-04,CM,8571429,pharyngeal swab,M,adult
+JL_CM-04,CM,8571429,pharyngeal swab,M,adult
+JL_CM-04,CM,8571429,pharyngeal swab,M,adult
+JL_CM-04,CM,8571429,pharyngeal swab,M,adult
+JL_CM-04,CM,8571429,pharyngeal swab,M,adult
+JL_CM-04,CM,8571429,pharyngeal swab,M,adult
+JL_CM-04,CM,8571429,pharyngeal swab,M,adult
+JL_CM-04,CM,8571429,pharyngeal swab,M,adult
+JL_CM-04,CM,8571429,pharyngeal swab,M,adult
+JL_CM-04,CM,8571429,pharyngeal swab,M,adult
+JL_CM-04,CM,8571429,pharyngeal swab,M,adult
+BL_RM-01,RM,100000,oropharyngeal swab,M,3
+BL_RM-02,RM,100000,oropharyngeal swab,M,3
+BL_RM-03,RM,100000,oropharyngeal swab,F,3
+BL_RM-04,RM,100000,oropharyngeal swab,F,3
+BL_RM-05,RM,100000,oropharyngeal swab,M,3
+BL_RM-06,RM,100000,oropharyngeal swab,M,3
+BL_RM-07,RM,100000,oropharyngeal swab,F,3
+BL_RM-08,RM,100000,oropharyngeal swab,F,3
+LL_RM-01,RM,100000,oral swab,F,adult
+LL_RM-01,RM,100000,oral swab,F,adult
+LL_RM-02,RM,100000,oral swab,F,adult
+LL_RM-02,RM,100000,oral swab,F,adult
+LL_RM-02,RM,100000,oral swab,F,adult
+LL_RM-02,RM,100000,oral swab,F,adult
+LL_RM-03,RM,100000,oral swab,F,adult
+LL_RM-03,RM,100000,oral swab,F,adult
+LL_RM-03,RM,100000,oral swab,F,adult
+LL_RM-03,RM,100000,oral swab,F,adult
+LL_RM-04,RM,100000,oral swab,F,adult
+LL_RM-04,RM,100000,oral swab,F,adult
+LL_RM-04,RM,100000,oral swab,F,adult
+LL_RM-04,RM,100000,oral swab,F,adult
+LL_RM-04,RM,100000,oral swab,F,adult
+LL_RM-04,RM,100000,oral swab,F,adult
+LL_RM-05,RM,100000,oral swab,F,adult
+LL_RM-05,RM,100000,oral swab,F,adult
+LL_RM-05,RM,100000,oral swab,F,adult
+LL_RM-06,RM,100000,oral swab,F,adult
+LL_RM-06,RM,100000,oral swab,F,adult
+LL_RM-06,RM,100000,oral swab,F,adult
+LL_RM-06,RM,100000,oral swab,F,adult
+LL_RM-06,RM,100000,oral swab,F,adult
+LL_RM-07,RM,100000,oral swab,F,adult
+LL_RM-07,RM,100000,oral swab,F,adult
+LL_RM-07,RM,100000,oral swab,F,adult
+LL_RM-07,RM,100000,oral swab,F,adult
+LL_RM-07,RM,100000,oral swab,F,adult
+LL_RM-08,RM,100000,oral swab,F,adult
+LL_RM-08,RM,100000,oral swab,F,adult
+LL_RM-08,RM,100000,oral swab,F,adult
+LL_RM-08,RM,100000,oral swab,F,adult
+LL_RM-08,RM,100000,oral swab,F,adult
+LL_RM-08,RM,100000,oral swab,F,adult
+LL_RM-09,RM,100000,oral swab,F,adult
+LL_RM-09,RM,100000,oral swab,F,adult
+LL_RM-09,RM,100000,oral swab,F,adult
+LL_RM-09,RM,100000,oral swab,F,adult
+LL_RM-09,RM,100000,oral swab,F,adult
+LL_RM-09,RM,100000,oral swab,F,adult
+LL_RM-09,RM,100000,oral swab,F,adult
+LL_RM-09,RM,100000,oral swab,F,adult
+LL_RM-10,RM,100000,oral swab,F,adult
+LL_RM-10,RM,100000,oral swab,F,adult
+LL_RM-10,RM,100000,oral swab,F,adult
+LL_RM-10,RM,100000,oral swab,F,adult
+LL_RM-10,RM,100000,oral swab,F,adult
+LL_RM-10,RM,100000,oral swab,F,adult
+LL_RM-10,RM,100000,oral swab,F,adult
+LL_RM-10,RM,100000,oral swab,F,adult
+LL_RM-11,RM,100000,oral swab,F,adult
+LL_RM-11,RM,100000,oral swab,F,adult
+LL_RM-11,RM,100000,oral swab,F,adult
+LL_RM-11,RM,100000,oral swab,F,adult
+LL_RM-11,RM,100000,oral swab,F,adult
+LL_RM-11,RM,100000,oral swab,F,adult
+LL_RM-11,RM,100000,oral swab,F,adult
+LL_RM-11,RM,100000,oral swab,F,adult
+LL_RM-11,RM,100000,oral swab,F,adult
+LL_RM-11,RM,100000,oral swab,F,adult
+LL_RM-11,RM,100000,oral swab,F,adult
+LL_RM-12,RM,100000,oral swab,F,adult
+LL_RM-12,RM,100000,oral swab,F,adult
+LL_RM-12,RM,100000,oral swab,F,adult
+LL_RM-12,RM,100000,oral swab,F,adult
+LL_RM-12,RM,100000,oral swab,F,adult
+LL_RM-12,RM,100000,oral swab,F,adult
+LL_RM-12,RM,100000,oral swab,F,adult
+LL_RM-12,RM,100000,oral swab,F,adult
+LL_RM-12,RM,100000,oral swab,F,adult
+LL_RM-12,RM,100000,oral swab,F,adult
+LL_RM-13,RM,100000,pharyngeal swab,F,adult
+LL_RM-14,RM,100000,pharyngeal swab,F,adult
+LL_RM-14,RM,100000,pharyngeal swab,F,adult
+LL_RM-14,RM,100000,pharyngeal swab,F,adult
+LL_RM-14,RM,100000,pharyngeal swab,F,adult
+NN_CM-01,CM,1000,nasal swab,M,"adult, 3"
+NN_CM-01,CM,1000,nasal swab,M,"adult, 3"
+NN_CM-01,CM,1000,nasal swab,M,"adult, 3"
+NN_CM-01,CM,1000,nasal swab,M,"adult, 3"
+NN_CM-01,CM,1000,throat swab,M,"adult, 3"
+NN_CM-01,CM,1000,throat swab,M,"adult, 3"
+NN_CM-01,CM,1000,throat swab,M,"adult, 3"
+NN_CM-01,CM,1000,throat swab,M,"adult, 3"
+NN_CM-02,CM,1000,nasal swab,M,"adult, 3"
+NN_CM-02,CM,1000,nasal swab,M,"adult, 3"
+NN_CM-02,CM,1000,nasal swab,M,"adult, 3"
+NN_CM-02,CM,1000,nasal swab,M,"adult, 3"
+NN_CM-02,CM,1000,throat swab,M,"adult, 3"
+NN_CM-02,CM,1000,throat swab,M,"adult, 3"
+NN_CM-02,CM,1000,throat swab,M,"adult, 3"
+NN_CM-02,CM,1000,throat swab,M,"adult, 3"
+NN_CM-03,CM,1000000,nasal swab,M,"adult, 3"
+NN_CM-03,CM,1000000,nasal swab,M,"adult, 3"
+NN_CM-03,CM,1000000,nasal swab,M,"adult, 3"
+NN_CM-03,CM,1000000,nasal swab,M,"adult, 3"
+NN_CM-03,CM,1000000,throat swab,M,"adult, 3"
+NN_CM-03,CM,1000000,throat swab,M,"adult, 3"
+NN_CM-03,CM,1000000,throat swab,M,"adult, 3"
+NN_CM-03,CM,1000000,throat swab,M,"adult, 3"
+NN_CM-04,CM,1000000,nasal swab,M,"adult, 3"
+NN_CM-04,CM,1000000,nasal swab,M,"adult, 3"
+NN_CM-04,CM,1000000,nasal swab,M,"adult, 3"
+NN_CM-04,CM,1000000,nasal swab,M,"adult, 3"
+NN_CM-04,CM,1000000,nasal swab,M,"adult, 3"
+NN_CM-04,CM,1000000,nasal swab,M,"adult, 3"
+NN_CM-04,CM,1000000,nasal swab,M,"adult, 3"
+NN_CM-04,CM,1000000,throat swab,M,"adult, 3"
+NN_CM-04,CM,1000000,throat swab,M,"adult, 3"
+NN_CM-04,CM,1000000,throat swab,M,"adult, 3"
+NN_CM-04,CM,1000000,throat swab,M,"adult, 3"
+NN_CM-04,CM,1000000,throat swab,M,"adult, 3"
+NN_CM-04,CM,1000000,throat swab,M,"adult, 3"
+NN_CM-04,CM,1000000,throat swab,M,"adult, 3"
