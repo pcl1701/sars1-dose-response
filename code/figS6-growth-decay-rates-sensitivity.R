@@ -235,4 +235,4 @@ fig <- (pg / pd / pt_double / pt_half) + plot_annotation(tag_levels = "A")
 
 ## Save plot -------------------------------------------------------------------
 
-ggsave("outputs/figures/S5 Fig.tiff", fig, width = 12, height = 10)
+ggsave("outputs/figures/S6 Fig.tiff", fig, width = 12, height = 10)

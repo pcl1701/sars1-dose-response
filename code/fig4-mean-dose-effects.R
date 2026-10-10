@@ -77,7 +77,7 @@ df_N <- data.frame(dose = final_doses,
 # plot results
 pXa <- df_N %>% ggplot(aes(x = dose, y = init_RNA, group = id)) +
   geom_line(alpha = 0.2,
-            color = "#BA1200") +
+            color = "#488B67") +
   geom_vline(xintercept = c(10^3, 10^5, 10^6, 10^6.9),
              linetype = "dashed",
              color = "red") +
@@ -138,7 +138,7 @@ df_t <- data.frame(dose = final_doses,
 # plot results
 pXb <- df_t %>% ggplot(aes(x = dose, y = peak_time, group = id)) +
   geom_line(alpha = 0.2,
-            color = "#0892A5") +
+            color = "#725AA6") +
   geom_vline(xintercept = c(10^3, 10^5, 10^6, 10^6.9),
              linetype = "dashed",
              color = "red") +
@@ -168,9 +168,9 @@ pXc <- fit %>%
   scale_y_continuous(trans = "log10",
                      breaks = c(1e-1, 1e+0, 1e+1, 1e+2, 1e+3, 1e+4),
                      labels = c("0.1", "1", "10", "100", "1000", "10000")) +
-  scale_fill_manual(values = c("#BA1200", "#0892A5")) +
+  scale_fill_manual(values = c("#488B67", "#725AA6")) +
   xlab(element_blank()) +
-  ylab(element_blank()) +
+  ylab("Effect of 100-Fold Dose Change") +
   theme(legend.position = "none")
 
 plot(pXc)

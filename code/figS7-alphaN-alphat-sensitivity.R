@@ -84,88 +84,74 @@ fit_NN <- readRDS("outputs/fits/fit-nagata-et-al-data.RDS")
 fit_NN <- fit_NN %>%
   recover_types(data_NN)
 
-## Compare dose-dependence intercept parameter estimates -----------------------
+## Compare dose-dependence slope parameter estimates ---------------------------
 
 theme_set(theme_bw())
 
-get_betaN_ests <- function(fit) {
+get_alphaN_ests <- function(fit) {
   fit %>%
-    spread_draws(log_N5[study_name]) %>%
-    select(study_name, log_N5)
+    spread_draws(alpha_N) %>%
+    pull(alpha_N)
 }
 
-get_betat_ests <- function(fit) {
+get_alphat_ests <- function(fit) {
   fit %>%
-    spread_draws(log_tp5[study_name]) %>%
-    select(study_name, log_tp5)
+    spread_draws(alpha_t) %>%
+    pull(alpha_t)
 }
 
-# extract betaN estimates
-betaN_all <- get_betaN_ests(fit_all)
-betaN_oral <- get_betaN_ests(fit_oral)
-betaN_nasal <- get_betaN_ests(fit_nasal)
-betaN_CM <- get_betaN_ests(fit_CM)
-betaN_NN <- get_betaN_ests(fit_NN)
+# extract alphaN estimates
+alphaN_all <- get_alphaN_ests(fit_all)
+alphaN_oral <- get_alphaN_ests(fit_oral)
+alphaN_nasal <- get_alphaN_ests(fit_nasal)
+alphaN_CM <- get_alphaN_ests(fit_CM)
+alphaN_NN <- get_alphaN_ests(fit_NN)
 
-# extract betat estimates
-betat_all <- get_betat_ests(fit_all)
-betat_oral <- get_betat_ests(fit_oral)
-betat_nasal <- get_betat_ests(fit_nasal)
-betat_CM <- get_betat_ests(fit_CM)
-betat_NN <- get_betat_ests(fit_NN)
+# extract alphat estimates
+alphat_all <- get_alphat_ests(fit_all)
+alphat_oral <- get_alphat_ests(fit_oral)
+alphat_nasal <- get_alphat_ests(fit_nasal)
+alphat_CM <- get_alphat_ests(fit_CM)
+alphat_NN <- get_alphat_ests(fit_NN)
 
-# create data frame for plotting betaN
-df_betaN <- rbind(betaN_all, betaN_oral, betaN_nasal, betaN_CM, betaN_NN)
-df_betaN$fit <- c(rep("All Data", nrow(betaN_all)),
-                  rep("Only Oral", nrow(betaN_oral)),
-                  rep("Only Nasal", nrow(betaN_nasal)),
-                  rep("Only Cynomolgus", nrow(betaN_CM)),
-                  rep("Only Nagata", nrow(betaN_NN)))
-df_betaN$fit <- factor(df_betaN$fit, levels = c("All Data", "Only Oral", "Only Nasal", "Only Cynomolgus", "Only Nagata"))
+# create data frame for plotting alphaN
+df_alphaN <- data.frame(alphaN = c(alphaN_all, alphaN_oral, alphaN_nasal, alphaN_CM, alphaN_NN),
+                        fit = rep(c("All Data", "Only Oral", "Only Nasal", "Only Cynomolgus", "Only Nagata"),
+                                  each = length(alphaN_all)))
+df_alphaN$fit <- factor(df_alphaN$fit, levels = c("All Data", "Only Oral", "Only Nasal", "Only Cynomolgus", "Only Nagata"))
 
-# create data frame for plotting betat
-df_betat <- rbind(betat_all, betat_oral, betat_nasal, betat_CM, betat_NN)
-df_betat$fit <- c(rep("All Data", nrow(betat_all)),
-                  rep("Only Oral", nrow(betat_oral)),
-                  rep("Only Nasal", nrow(betat_nasal)),
-                  rep("Only Cynomolgus", nrow(betat_CM)),
-                  rep("Only Nagata", nrow(betat_NN)))
-df_betat$fit <- factor(df_betat$fit, levels = c("All Data", "Only Oral", "Only Nasal", "Only Cynomolgus", "Only Nagata"))
+# create data frame for plotting alphat
+df_alphat <- data.frame(alphat = c(alphat_all, alphat_oral, alphat_nasal, alphat_CM, alphat_NN),
+                        fit = rep(c("All Data", "Only Oral", "Only Nasal", "Only Cynomolgus", "Only Nagata"),
+                                  each = length(alphat_all)))
+df_alphat$fit <- factor(df_alphat$fit, levels = c("All Data", "Only Oral", "Only Nasal", "Only Cynomolgus", "Only Nagata"))
 
-# plot betaN
-pbetaN <- df_betaN %>%
-  ggplot(aes(x = study_name, y = exp(log_N5), color = study_name)) +
+# plot alphaN estimates
+palphaN <- df_alphaN %>%
+  ggplot(aes(x = fit, y = alphaN, color = fit)) +
   stat_pointinterval(.width = c(0.66, 0.95)) +
   xlab(element_blank()) +
-  ylab(bquote("exp(" * beta[N] * ")")) +
-  scale_y_continuous(trans = "log10",
-                     breaks = trans_breaks("log10", function(x) 10^x),
-                     labels = trans_format("log10", math_format(10^.x))) +
-  coord_cartesian(ylim = c(1e+1, 10^4.5)) +
-  theme(legend.position = "none") +
-  facet_grid(~ fit, scales = "free_x")
+  ylab(bquote(alpha[N])) +
+  # coord_cartesian(ylim = c(0, 4)) +
+  theme(legend.position = "none")
 
-plot(pbetaN)
+plot(palphaN)
 
-# plot betat
-pbetat <- df_betat %>%
-  ggplot(aes(x = study_name, y = exp(log_tp5), color = study_name)) +
+# plot alphat estimates
+palphat <- df_alphat %>%
+  ggplot(aes(x = fit, y = alphat, color = fit)) +
   stat_pointinterval(.width = c(0.66, 0.95)) +
   xlab(element_blank()) +
-  ylab(bquote("exp(" * beta[t] * ")")) +
-  scale_y_continuous(trans = "log10",
-                     breaks = c(1e-1, 1e+0, 1e+1),
-                     labels = trans_format("log10", math_format(10^.x))) +
-  coord_cartesian(ylim = c(10^-1, 10^1)) +
-  theme(legend.position = "none") +
-  facet_grid(~ fit, scales = "free_x")
+  ylab(bquote(alpha[t])) +
+  # coord_cartesian(ylim = c(-1, 1)) +
+  theme(legend.position = "none")
 
-plot(pbetat)
+plot(palphat)
 
 ## Combined plot ---------------------------------------------------------------
 
-fig <- (pbetaN / pbetat) + plot_annotation(tag_levels = "A")
+fig <- (palphaN / palphat) + plot_annotation(tag_levels = "A")
 
 ## Save plot -------------------------------------------------------------------
 
-ggsave("outputs/figures/S7 Fig.tiff", fig, width = 12, height = 6)
+ggsave("outputs/figures/S7 Fig.tiff", fig, width = 6, height = 5)

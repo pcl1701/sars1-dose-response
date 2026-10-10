@@ -70,6 +70,10 @@ fit_oral <- readRDS("outputs/fits/fit-oral-data.RDS")
 fit_oral <- fit_oral %>%
   recover_types(data_oral)
 
+fit_RM <- readRDS("outputs/fits/fit-rhesus-data.RDS")
+fit_RM <- fit_RM %>%
+  recover_types(data_RM)
+
 fit_CM <- readRDS("outputs/fits/fit-cynomolgus-data.RDS")
 fit_CM <- fit_CM %>%
   recover_types(data_CM)
@@ -157,7 +161,7 @@ p1 <- p1 +
 
 plot(p1)
 
-## Fig 6B: ID50 posterior by CM and NN -----------------------------------------
+## Fig 6B: ID50 posterior by CM and RM -----------------------------------------
 
 theme_set(theme_bw())
 
@@ -172,7 +176,7 @@ ID50s_CM <- fit_CM %>%
   mutate(ID50 = exp(log_ID50)) %>%
   pull(ID50)
 
-ID50s_NN <- fit_NN %>%
+ID50s_RM <- fit_RM %>%
   spread_draws(log_ID50) %>%
   mutate(ID50 = exp(log_ID50)) %>%
   pull(ID50)
@@ -180,11 +184,11 @@ ID50s_NN <- fit_NN %>%
 # prepare plotting data frames
 df_ID50_all <- data.frame(ID50 = ID50s_all,
                           study = "All Data")
-df_ID50_CM_NN <- data.frame(ID50 = c(ID50s_CM, ID50s_NN),
-                            study = c(rep("Lawler et al. and Nagata et al.", length(ID50s_CM)),
-                                      rep("Only Nagata et al.", length(ID50s_NN))))
-df_ID50_CM_NN$study <- factor(df_ID50_CM_NN$study,
-                              levels = c("Lawler et al. and Nagata et al.", "Only Nagata et al."))
+df_ID50_CM_RM <- data.frame(ID50 = c(ID50s_CM, ID50s_RM),
+                            species = c(rep("Cynomolgus", length(ID50s_CM)),
+                                        rep("Rhesus", length(ID50s_RM))))
+df_ID50_CM_RM$species <- factor(df_ID50_CM_RM$species,
+                                levels = c("Cynomolgus", "Rhesus"))
 
 # plot results
 
@@ -197,17 +201,17 @@ colnames(df_dose_CM)[1] <- "dose"
 df_dose_CM$y <- 0.65
 df_dose_CM$dose <- as.numeric(as.character(df_dose_CM$dose))
 
-# NN doses
-df_dose_NN <- data_NN %>%
+# RM doses
+df_dose_RM <- data_RM %>%
   select(individual, TCID_dose) %>%
   distinct()
-df_dose_NN <- as.data.frame(table(df_dose_NN$TCID_dose))
-colnames(df_dose_NN)[1] <- "dose"
-df_dose_NN$y <- 0.55
-df_dose_NN$dose <- as.numeric(as.character(df_dose_NN$dose))
+df_dose_RM <- as.data.frame(table(df_dose_RM$TCID_dose))
+colnames(df_dose_RM)[1] <- "dose"
+df_dose_RM$y <- 0.55
+df_dose_RM$dose <- as.numeric(as.character(df_dose_RM$dose))
 
 p2 <- ggplot() +
-  geom_density(data = df_ID50_CM_NN, aes(x = ID50, fill = study),
+  geom_density(data = df_ID50_CM_RM, aes(x = ID50, fill = species),
                alpha = 0.7, color = NA) +
   geom_density(data = df_ID50_all, aes(x = ID50),
                alpha = 0.7, color = "black", fill = NA, linetype = "dashed") +
@@ -215,9 +219,9 @@ p2 <- ggplot() +
              alpha = 0.7, color = "#3A4F41", size = 5) +
   geom_text(data = df_dose_CM, aes(x = dose, y = y, label = Freq),
             alpha = 1, size = 3) +
-  geom_point(data = df_dose_NN, aes(x = dose, y = y),
+  geom_point(data = df_dose_RM, aes(x = dose, y = y),
              alpha = 0.7, color = "#B9314F", size = 5) +
-  geom_text(data = df_dose_NN, aes(x = dose, y = y, label = Freq),
+  geom_text(data = df_dose_RM, aes(x = dose, y = y, label = Freq),
             alpha = 1, size = 3)
 
 # final plot settings
@@ -231,16 +235,76 @@ p2 <- p2 +
   xlab(bquote(ID[50] ~ "(" * TCID[50] * ")")) +
   ylab("Density") +
   scale_fill_manual(name = element_blank(),
-                    values = c("Lawler et al. and Nagata et al." = "#3A4F41",
-                               "Only Nagata et al." = "#B9314F")) +
+                    values = c("Cynomolgus" = "#3A4F41",
+                               "Rhesus" = "#B9314F")) +
   theme(legend.position = "bottom")
 
 plot(p2)
 
+## Fig 6C: ID50 posterior by NN ------------------------------------------------
+
+theme_set(theme_bw())
+
+# extract ID50 estimates
+ID50s_all <- fit_all %>%
+  spread_draws(log_ID50) %>%
+  mutate(ID50 = exp(log_ID50)) %>%
+  pull(ID50)
+
+ID50s_NN <- fit_NN %>%
+  spread_draws(log_ID50) %>%
+  mutate(ID50 = exp(log_ID50)) %>%
+  pull(ID50)
+
+# prepare plotting data frames
+df_ID50_all <- data.frame(ID50 = ID50s_all,
+                          study = "All Data")
+df_ID50_NN <- data.frame(ID50 = c(ID50s_NN),
+                         study = c(rep("Nagata et al. (2007)", length(ID50s_NN))))
+df_ID50_NN$study <- factor(df_ID50_NN$study,
+                           levels = c("Nagata et al. (2007)"))
+
+# plot results
+
+# NN doses
+df_dose_NN <- data_NN %>%
+  select(individual, TCID_dose) %>%
+  distinct()
+df_dose_NN <- as.data.frame(table(df_dose_NN$TCID_dose))
+colnames(df_dose_NN)[1] <- "dose"
+df_dose_NN$y <- 0.6
+df_dose_NN$dose <- as.numeric(as.character(df_dose_NN$dose))
+
+p3 <- ggplot() +
+  geom_density(data = df_ID50_NN, aes(x = ID50, fill = study),
+               alpha = 0.7, color = NA) +
+  geom_density(data = df_ID50_all, aes(x = ID50),
+               alpha = 0.7, color = "black", fill = NA, linetype = "dashed") +
+  geom_point(data = df_dose_NN, aes(x = dose, y = y),
+             alpha = 0.7, color = "#77BA99", size = 5) +
+  geom_text(data = df_dose_NN, aes(x = dose, y = y, label = Freq),
+            alpha = 1, size = 3)
+
+# final plot settings
+p3 <- p3 +
+  scale_x_continuous(trans = "log10",
+                     limits = c(1e-1, 1e+7),
+                     breaks = c(1e-1, 1e+0, 1e+1, 1e+2, 1e+3, 1e+4, 1e+5, 1e+6, 1e+7),
+                     labels = trans_format("log10", math_format(10^.x))) +
+  scale_y_continuous(limits = c(0.0, 0.75),
+                     breaks = c(0.0, 0.25, 0.50, 0.75, 1.00)) +
+  xlab(bquote(ID[50] ~ "(" * TCID[50] * ")")) +
+  ylab("Density") +
+  scale_fill_manual(name = element_blank(),
+                    values = c("Nagata et al. (2007)" = "#77BA99")) +
+  theme(legend.position = "bottom")
+
+plot(p3)
+
 ## Fig 6: combined ID50 plot ---------------------------------------------------
 
-fig <- p1 + p2 + plot_annotation(tag_levels = "A")
+fig <- p1 + p2 + p3 + plot_annotation(tag_levels = "A")
 
 ## Save plot -------------------------------------------------------------------
 
-ggsave("outputs/figures/Fig6.tiff", fig, width = 8, height = 4)
+ggsave("outputs/figures/Fig6.tiff", fig, width = 11, height = 4)

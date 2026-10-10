@@ -329,11 +329,11 @@ pXa <- pXa +
 
 plot(pXa)
 
-## Fig 3B: initial viral load distributions ------------------------------------
+## Fig 3B: peak viral load distributions ------------------------------------
 
 final_studies <- c()
 final_doses <- c()
-final_init_N <- c()
+final_peak_N <- c()
 
 col_idx <- 1 # to keep track of study+dose combination
 
@@ -352,15 +352,17 @@ for (study_name in names(study_names_doses)) {
     # extract draws for successful infections only
     success_draws <- cur_draws[success_ids[,col_idx],]
     
-    # compute initial viral loads
-    init_N <- success_draws %>%
-      mutate(init_N = exp(log_init_RNA(hit_prob, dose, alpha_N, log_N5))) %>%
-      pull(init_N)
+    # extract peak viral loads
+    peak_N <- success_draws %>%
+      mutate(init_N = exp(log_init_RNA(hit_prob, dose, alpha_N, log_N5)),
+             peak_t = peak_time(hit_prob, dose, alpha_t, log_tp5)) %>%
+      mutate(peak_N = init_N*exp(g*peak_t)) %>%
+      pull(peak_N)
     
-    # save initial viral loads
-    final_studies <- c(final_studies, rep(study_name, length(init_N)))
-    final_doses <- c(final_doses, rep(dose, length(init_N)))
-    final_init_N <- c(final_init_N, init_N)
+    # save peak viral loads
+    final_studies <- c(final_studies, rep(study_name, length(peak_N)))
+    final_doses <- c(final_doses, rep(dose, length(peak_N)))
+    final_peak_N <- c(final_peak_N, peak_N)
     
     col_idx <- col_idx + 1
     
@@ -369,9 +371,9 @@ for (study_name in names(study_names_doses)) {
 }
 
 # combine and plot
-df_init_N <- data.frame(study_name = final_studies,
+df_peak_N <- data.frame(study_name = final_studies,
                         TCID_dose = final_doses,
-                        init_N = final_init_N)
+                        peak_N = final_peak_N)
 
 # set study values
 study_labels <- c("Li et al. (2005)",
@@ -380,7 +382,7 @@ study_labels <- c("Li et al. (2005)",
                   "Chen et al. (2008)",
                   "Liu et al. (2016)",
                   "Liu et al. (2019)")
-df_init_N <- df_init_N %>%
+df_peak_N <- df_peak_N %>%
   mutate(study = case_when(
     (study_name == "BL") ~ study_labels[1],
     (study_name == "JL") ~ study_labels[2],
@@ -396,14 +398,14 @@ study_order <- c("Li et al. (2005)",
                  "Chen et al. (2008)",
                  "Liu et al. (2016)",
                  "Liu et al. (2019)")
-df_init_N$study <- factor(df_init_N$study, levels = study_order)
+df_peak_N$study <- factor(df_peak_N$study, levels = study_order)
 
 # set facet values
-facet_labels <- c("10^3 ~ TCID[50]",
+facet_labels <- c("10^3 ~ TCID[50]~'*'",
                   "10^5 ~ TCID[50]",
                   "10^6 ~ TCID[50]",
                   "10^6.9 ~ TCID[50]")
-df_init_N <- df_init_N %>%
+df_peak_N <- df_peak_N %>%
   mutate(facet = case_when(
     (study_name == "BL") ~ facet_labels[2],
     (study_name == "JL") ~ facet_labels[4],
@@ -414,13 +416,13 @@ df_init_N <- df_init_N %>%
     (study_name == "YC") ~ facet_labels[2]
   ))
 # set facet order
-facet_order <- c("10^3 ~ TCID[50]",
+facet_order <- c("10^3 ~ TCID[50]~'*'",
                  "10^5 ~ TCID[50]",
                  "10^6 ~ TCID[50]",
                  "10^6.9 ~ TCID[50]")
-df_init_N$facet <- factor(df_init_N$facet, levels = facet_order)
+df_peak_N$facet <- factor(df_peak_N$facet, levels = facet_order)
 
-pXb <- ggplot(df_init_N, aes(x = study, y = init_N, color = interaction(study, facet))) +
+pXb <- ggplot(df_peak_N, aes(x = study, y = peak_N, color = interaction(study, facet))) +
   stat_pointinterval(.width = c(0.66, 0.95)) +
   scale_y_continuous(trans = "log10",
                      breaks = c(1e-2, 1e-1, 1e+0, 1e+1, 1e+2, 1e+3, 1e+4, 1e+5, 1e+6, 1e+7),
@@ -429,7 +431,7 @@ pXb <- ggplot(df_init_N, aes(x = study, y = init_N, color = interaction(study, f
   scale_color_manual(values = colors) +
   # scale_color_brewer(palette = "Dark2") +
   xlab(element_blank()) +
-  ylab("Initial Viral Load (RNA Copies/Sample)") +
+  ylab("Peak Viral Load (RNA Copies/Sample)") +
   facet_grid(.~facet, labeller = label_parsed,
              scales = "free", space = "free_y", switch = "y") +
   theme(legend.position = "none",
@@ -508,7 +510,7 @@ study_order <- c("Li et al. (2005)",
 df_peak_t$study <- factor(df_peak_t$study, levels = study_order)
 
 # set facet values
-facet_labels <- c("10^3 ~ TCID[50]",
+facet_labels <- c("10^3 ~ TCID[50]~'*'",
                   "10^5 ~ TCID[50]",
                   "10^6 ~ TCID[50]",
                   "10^6.9 ~ TCID[50]")
@@ -523,7 +525,7 @@ df_peak_t <- df_peak_t %>%
     (study_name == "YC") ~ facet_labels[2]
   ))
 # set facet order
-facet_order <- c("10^3 ~ TCID[50]",
+facet_order <- c("10^3 ~ TCID[50]~'*'",
                  "10^5 ~ TCID[50]",
                  "10^6 ~ TCID[50]",
                  "10^6.9 ~ TCID[50]")
@@ -650,7 +652,7 @@ study_order <- c("Li et al. (2005)",
 df_duration$study <- factor(df_duration$study, levels = study_order)
 
 # set facet values
-facet_labels <- c("10^3 ~ TCID[50]",
+facet_labels <- c("10^3 ~ TCID[50]~'*'",
                   "10^5 ~ TCID[50]",
                   "10^6 ~ TCID[50]",
                   "10^6.9 ~ TCID[50]")
@@ -665,7 +667,7 @@ df_duration <- df_duration %>%
     (study_name == "YC") ~ facet_labels[2]
   ))
 # set facet order
-facet_order <- c("10^3 ~ TCID[50]",
+facet_order <- c("10^3 ~ TCID[50]~'*'",
                  "10^5 ~ TCID[50]",
                  "10^6 ~ TCID[50]",
                  "10^6.9 ~ TCID[50]")
@@ -779,7 +781,7 @@ study_order <- c("Li et al. (2005)",
 df_AUCs$study <- factor(df_AUCs$study, levels = study_order)
 
 # set facet values
-facet_labels <- c("10^3 ~ TCID[50]",
+facet_labels <- c("10^3 ~ TCID[50]~'*'",
                   "10^5 ~ TCID[50]",
                   "10^6 ~ TCID[50]",
                   "10^6.9 ~ TCID[50]")
@@ -794,7 +796,7 @@ df_AUCs <- df_AUCs %>%
     (study_name == "YC") ~ facet_labels[2]
   ))
 # set facet order
-facet_order <- c("10^3 ~ TCID[50]",
+facet_order <- c("10^3 ~ TCID[50]~'*'",
                  "10^5 ~ TCID[50]",
                  "10^6 ~ TCID[50]",
                  "10^6.9 ~ TCID[50]")
